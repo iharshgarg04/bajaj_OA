@@ -2,14 +2,21 @@ const express = require("express");
 const cors = require("cors");
 const PORT = 4000;
 const  app = express();
-
-app.post("/bfhl",async(req,res)=>{
+app.use(cors({
+    origin:"*",
+    credentials:true
+}))
+app.use(express.json());
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+app.post('/bfhl',async(req,res)=>{
     try{
-        const [data] = req.body;
-        const datafetch = data.split(',');
-        const even = datafetch.filter((num)=>num%2===0 && typeof(num)==='number');
-        const odd_numbers = datafetch.filter((num)=>num%2!==0 && typeof(num)==='number');
-        const alphabet = datafetch.filter((num)=>num%2===0 && typeof(num)==='string');
+        const {data}=req.body;
+        const even= data.filter((num)=>typeof parseInt(num)==='number' && parseInt(num)%2===0);
+        const odd= data.filter((num)=>typeof parseInt(num)==='number' && parseInt(num)%2===1);
+        const alpha= data.filter((num)=>typeof num==='string' && isNaN(parseInt(num)));
+        const upper=alpha.map((al)=>al.toUpperCase());
         const user_id = "harsh1713";
         const email = "harsh1713.be21@chitkara.edu.in";
         const roll_no = "2110991713";
