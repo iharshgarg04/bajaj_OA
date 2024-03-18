@@ -26,7 +26,7 @@ app.post('/bfhl',async(req,res)=>{
             roll_number: roll_no,
             odd_numbers : even ,
             even_numbers: odd_numbers,
-            alphabets : alphabet
+            alphabets : upper
         })
     }catch(error){
         console.log(error);
